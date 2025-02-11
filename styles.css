@@ -2,11 +2,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
 }
 
 .header {
@@ -41,9 +46,10 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
     margin: 0 auto;
-    padding: 4rem 2rem;
 }
 
 .hero-section {
@@ -83,9 +89,9 @@ body {
 }
 
 input, textarea {
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 0.8rem;
+    border: 1px solid #ffe6f0;
+    border-radius: 10px;
 }
 
 textarea {
@@ -957,7 +963,7 @@ textarea {
     border-radius: 15px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     width: 100%;
-    overflow: hidden; /* 追加 */
+    overflow: hidden;
 }
 
 /* チャットヘッダーの調整 */
@@ -1102,4 +1108,142 @@ textarea {
 
 .ai-message .message-content a:hover {
     color: #ff3377;
+}
+
+/* モバイル対応の基本設定 */
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ビューポートの高さを考慮したレイアウト */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+/* コンテナのモバイル対応 */
+.container {
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
+    margin: 0 auto;
+}
+
+/* フォーム要素のモバイル対応 */
+input, select, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ffe6f0;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+/* ボタンのモバイル対応 */
+button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    touch-action: manipulation;
+}
+
+/* 赤ちゃん情報入力フォームのモバイル対応 */
+.baby-info-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #666;
+}
+
+/* モバイルでのタッチ操作を考慮したスペース */
+.form-group input,
+.form-group textarea {
+    margin-bottom: 1rem;
+    min-height: 44px;
+}
+
+/* スマートフォン向けのメディアクエリ */
+@media (max-width: 480px) {
+    /* コンテナの余白調整 */
+    .container {
+        padding: 1rem;
+    }
+
+    /* フォームの幅調整 */
+    .baby-info-form {
+        padding: 1rem;
+    }
+
+    /* 入力フィールドのサイズ調整 */
+    input, select, textarea {
+        font-size: 16px;
+        padding: 0.8rem;
+    }
+
+    /* ヘッダーのサイズ調整 */
+    .app-header {
+        padding: 0.8rem;
+    }
+
+    /* ロゴのサイズ調整 */
+    .app-logo {
+        font-size: 1.2rem;
+    }
+
+    /* タイトルのサイズ調整 */
+    .page-title {
+        font-size: 1.1rem;
+    }
+
+    /* 説明テキストのサイズ調整 */
+    .form-description {
+        font-size: 0.9rem;
+        margin: 1rem 0;
+    }
+}
+
+/* iPhoneのノッチ対応 */
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+}
+
+/* 入力フォームのスタイル改善 */
+.input-field {
+    background-color: white;
+    border: 1px solid #ffe6f0;
+    border-radius: 10px;
+    padding: 0.8rem;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 1rem;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #ff99cc;
+    box-shadow: 0 0 0 2px rgba(255, 153, 204, 0.2);
+}
+
+/* プレースホルダーのスタイル */
+.input-field::placeholder {
+    color: #999;
 } 
