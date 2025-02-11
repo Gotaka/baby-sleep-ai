@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>すやり - 赤ちゃんの睡眠AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-auth-compat.js"></script>
+    <script src="auth.js" type="module" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="app-header">
+            <div class="app-header-content">
+                <div class="app-header-left">
+                    <a href="#" class="app-logo">すやり</a>
+                    <h1 class="page-title">赤ちゃんの睡眠AI</h1>
+                </div>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="auth-tabs">
+                <button type="button" class="auth-tab active" data-tab="login">ログイン</button>
+                <button type="button" class="auth-tab" data-tab="signup">新規登録</button>
+            </div>
+            
+            <form id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <label for="loginEmail">メールアドレス</label>
+                    <input type="email" id="loginEmail" placeholder="example@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">パスワード</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="loginPassword" placeholder="パスワードを入力" required>
+                        <button type="button" class="toggle-password" tabindex="-1">👁</button>
+                    </div>
+                </div>
+                <button type="submit" class="auth-button">ログイン</button>
+            </form>
+
+            <form id="signupForm" class="auth-form">
+                <div class="form-group">
+                    <label for="signupEmail">メールアドレス</label>
+                    <input type="email" id="signupEmail" placeholder="example@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">パスワード</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="signupPassword" placeholder="英字と数字を組み合わせて入力" required>
+                        <button type="button" class="toggle-password" tabindex="-1">👁</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signupPasswordConfirm">パスワード（確認）</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="signupPasswordConfirm" placeholder="パスワードを再入力" required>
+                        <button type="button" class="toggle-password" tabindex="-1">👁</button>
+                    </div>
+                </div>
+                <button type="submit" class="auth-button">新規登録</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html> 

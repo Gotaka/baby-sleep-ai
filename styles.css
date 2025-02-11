@@ -1,0 +1,1105 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.header {
+    background-color: #4a90e2;
+    padding: 1rem 0;
+    color: white;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.nav-menu ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.hero-section {
+    background-color: #f5f5f5;
+    text-align: center;
+}
+
+.cta-button {
+    padding: 1rem 2rem;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.feature-card {
+    padding: 2rem;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+input, textarea {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+textarea {
+    height: 150px;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-menu ul {
+        gap: 1rem;
+    }
+}
+
+/* チャットセクションのスタイルを修正 */
+.chat-section {
+    background-color: #fff5f7;
+    min-height: 100vh;
+    padding: 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.chat-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
+}
+
+/* チャットメッセージ部分の調整 */
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+    margin-bottom: 1rem;
+}
+
+.message {
+    margin-bottom: 1rem;
+    display: flex;
+}
+
+.message-content {
+    max-width: 70%;
+    padding: 1rem;
+    border-radius: 15px;
+    line-height: 1.6;
+}
+
+.message-content p {
+    margin: 1em 0;
+    white-space: pre-wrap;
+}
+
+.message-content p:first-child {
+    margin-top: 0;
+}
+
+.message-content p:last-child {
+    margin-bottom: 0;
+}
+
+.message-content ul,
+.message-content ol {
+    margin: 1em 0;
+    padding-left: 2em;
+}
+
+.message-content li {
+    margin: 0.5em 0;
+    line-height: 1.4;
+}
+
+.message-content ul li {
+    list-style-type: disc;
+}
+
+.message-content ol li {
+    list-style-type: decimal;
+}
+
+.message-content strong {
+    font-weight: bold;
+    color: inherit;
+}
+
+.message-content em {
+    font-style: italic;
+}
+
+.message-content code {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
+.message-content pre {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 0.5em 0;
+}
+
+.message-content pre code {
+    background-color: transparent;
+    padding: 0;
+    white-space: pre;
+}
+
+.message-content a {
+    color: #ff99cc;
+    text-decoration: underline;
+}
+
+.message-content a:hover {
+    color: #ff6699;
+}
+
+.ai-message {
+    justify-content: flex-start;
+}
+
+.ai-message .message-content {
+    background-color: #ffd6e6;
+    color: #333;
+}
+
+.user-message {
+    justify-content: flex-end;
+}
+
+.user-message .message-content {
+    background-color: #ff99cc;
+    color: white;
+}
+
+.chat-input {
+    padding: 1rem;
+    border-top: 1px solid #ffe6f0;
+}
+
+.message-form {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.message-form textarea {
+    flex-grow: 1;
+    padding: 0.8rem;
+    border: 2px solid #ffe6f0;
+    border-radius: 10px;
+    resize: none;
+    font-family: inherit;
+    min-height: 50px;
+    max-height: 150px;
+}
+
+.send-button {
+    padding: 0.8rem 1.5rem;
+    background-color: #ff99cc;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    height: fit-content;
+}
+
+/* レスポンシブ対応の調整 */
+@media (max-width: 768px) {
+    .chat-section {
+        padding: 1rem;
+    }
+    
+    .chat-container {
+        margin: 0;
+        min-height: 95vh;
+    }
+    
+    .baby-info-form {
+        padding: 1rem;
+    }
+}
+
+/* 認証関連のスタイル */
+.auth-section {
+    background-color: #fff5f7;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+.auth-container {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-tabs {
+    display: flex;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #ffe6f0;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #666;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.auth-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: transparent;
+    transition: background-color 0.3s;
+}
+
+.auth-tab.active::after {
+    background-color: #ff99cc;
+}
+
+.auth-tab:hover::after {
+    background-color: #ffb3d9;
+}
+
+.auth-tab.active {
+    color: #ff99cc;
+    font-weight: bold;
+}
+
+.auth-form {
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+/* 別途アニメーションが必要な場合 */
+.auth-form.active {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #ffe6f0;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #ff99cc;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: #ff99cc;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.auth-button:hover {
+    background-color: #ff80bf;
+}
+
+.hidden {
+    display: none;
+}
+
+/* フォームラベルのスタイル */
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* パスワード入力欄のラッパー */
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper input {
+    width: 100%;
+    padding-right: 45px;
+}
+
+/* パスワード表示切り替えボタン */
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #666;
+    z-index: 2;
+    font-size: 1.2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    outline: none;
+}
+
+.toggle-password:hover {
+    color: #ff99cc;
+}
+
+/* エラーメッセージの表示を改善 */
+.error-message {
+    color: #ff4444;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    background-color: #ffe6e6;
+    padding: 0.5rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* 赤ちゃん情報フォームの調整 */
+.baby-info-form {
+    padding: 2rem;
+    border-bottom: 1px solid #ffe6f0;
+    background-color: #fff5f7;
+    border-radius: 15px 15px 0 0;
+}
+
+.baby-info-form h3 {
+    margin-bottom: 1.5rem;
+    color: #ff99cc;
+    font-size: 1.2rem;
+}
+
+.info-text {
+    margin-left: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.submit-button {
+    background-color: #ff99cc;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #ff80bf;
+}
+
+/* 入力フィールドのスタイルを調整 */
+.baby-info-form input[type="date"],
+.baby-info-form input[type="time"] {
+    padding: 0.8rem;
+    border: 2px solid #ffe6f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    width: auto;
+}
+
+.baby-info-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #ffe6f0;
+    border-radius: 10px;
+    resize: vertical;
+    min-height: 60px;
+}
+
+/* 時間入力フィールドのスタイルを調整 */
+.baby-info-form input[type="time"] {
+    padding: 0.8rem;
+    border: 2px solid #ffe6f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    width: auto;
+    min-width: 150px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.baby-info-form input[type="time"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    padding: 0.2rem;
+}
+
+.baby-info-form input[type="time"]:focus {
+    outline: none;
+    border-color: #ff99cc;
+}
+
+/* 時間選択のスタイル */
+.time-select-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.time-select {
+    padding: 0.8rem;
+    border: 2px solid #ffe6f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+}
+
+.time-select:focus {
+    outline: none;
+    border-color: #ff99cc;
+}
+
+.time-select-wrapper span {
+    color: #666;
+    font-size: 1.2rem;
+}
+
+/* 赤ちゃん情報入力ページのスタイル */
+.baby-info-page {
+    min-height: 100vh;
+    background-color: #fff5f7;
+    padding: 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.baby-info-container {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 2rem;
+}
+
+.baby-info-container h2 {
+    color: #ff99cc;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.skip-button {
+    background-color: #666;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.skip-button:hover {
+    background-color: #888;
+}
+
+/* 認証ページのスタイル */
+.auth-page {
+    min-height: 100vh;
+    background-color: #fff5f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.auth-container {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-title {
+    text-align: center;
+    color: #ff99cc;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+/* 赤ちゃん選択画面のスタイル */
+.baby-select-page {
+    min-height: 100vh;
+    background-color: #fff5f7;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.baby-select-container {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header-actions h2 {
+    color: #ff99cc;
+    margin: 0;
+}
+
+.signout-button {
+    background-color: #666;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.signout-button:hover {
+    background-color: #888;
+}
+
+.baby-list {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.baby-card {
+    padding: 1.5rem;
+    border: 2px solid #ffe6f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: white;
+    position: relative;
+    padding-right: 3.5rem;
+}
+
+.baby-card:hover {
+    border-color: #ff99cc;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(255, 153, 204, 0.2);
+}
+
+.baby-info {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.baby-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.baby-details {
+    flex-grow: 1;
+}
+
+.baby-date-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    color: #666;
+}
+
+.baby-birthday {
+    font-size: 0.9rem;
+}
+
+.baby-age {
+    font-size: 1.1rem;
+    color: #ff99cc;
+    font-weight: bold;
+}
+
+.baby-schedule {
+    color: #666;
+    text-align: right;
+    font-size: 0.9rem;
+}
+
+.add-baby-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: #ff99cc;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s;
+}
+
+.add-baby-button:hover {
+    background-color: #ff80bf;
+}
+
+.plus-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+/* 編集ボタンのスタイル */
+.baby-card-actions {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.edit-button {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.edit-button:hover {
+    background-color: #ffe6f0;
+    color: #ff99cc;
+}
+
+.edit-icon {
+    font-size: 1.2rem;
+}
+
+/* チャットヘッダーのスタイルを修正 */
+.chat-header {
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #ffe6f0;
+    background-color: #fff;
+    border-radius: 15px 15px 0 0;
+}
+
+.baby-info-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #ffe6f0;
+    color: #ff99cc;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.back-button:hover {
+    background-color: #ff99cc;
+    color: white;
+}
+
+.back-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.baby-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.selected-baby-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ff99cc;
+    white-space: nowrap;
+}
+
+.change-baby-button {
+    padding: 0.5rem 1rem;
+    background-color: #ffe6f0;
+    color: #ff99cc;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.change-baby-button:hover {
+    background-color: #ff99cc;
+    color: white;
+}
+
+/* エラーメッセージのスタイル */
+.error-message {
+    background-color: #ffe6e6;
+    color: #ff4444;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* アプリ名のスタイル */
+.app-title {
+    color: #ff99cc;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+    color: #666;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* ヘッダータイトルの調整 */
+.header-title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.header-title h2 {
+    margin: 0;
+}
+
+/* チャットタイトルの調整 */
+.chat-title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.chat-title .app-title {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+/* 共通ヘッダーのスタイル */
+.app-header {
+    background-color: white;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #ffe6f0;
+    border-radius: 15px 15px 0 0;
+}
+
+.app-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.app-logo {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+.app-logo .logo-main {
+    color: #ff99cc;
+}
+
+.app-logo .logo-accent {
+    color: #ff6699;
+}
+
+.page-title {
+    color: #666;
+    font-size: 1rem;
+    font-weight: normal;
+    margin: 0;
+}
+
+/* 既存のコンテナのスタイルを調整 */
+.auth-container,
+.baby-select-container,
+.baby-info-container,
+.chat-container {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    overflow: hidden; /* 追加 */
+}
+
+/* チャットヘッダーの調整 */
+.chat-header {
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #ffe6f0;
+    background-color: #fff;
+}
+
+/* 各ページのコンテンツ部分の調整 */
+.page-content {
+    padding: 2rem;
+}
+
+/* 既存のタイトル関連のスタイルを削除または調整 */
+.auth-title,
+.app-title,
+.header-title {
+    display: none;
+}
+
+/* 会話選択画面のスタイル */
+.conversation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.conversation-card {
+    background-color: white;
+    border: 1px solid #ffe6f0;
+    border-radius: 10px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.conversation-card:hover {
+    background-color: #fff5f7;
+    transform: translateY(-2px);
+}
+
+.conversation-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.conversation-title {
+    font-weight: bold;
+    color: #ff99cc;
+}
+
+.conversation-date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.conversation-preview {
+    color: #666;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.add-conversation-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 1rem;
+    background-color: #ffe6f0;
+    border: none;
+    border-radius: 10px;
+    color: #ff99cc;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.add-conversation-button:hover {
+    background-color: #ff99cc;
+    color: white;
+}
+
+.header-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.baby-name {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.conversation-title-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.edit-title-button {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 0.2rem;
+    font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.conversation-card:hover .edit-title-button {
+    opacity: 1;
+}
+
+.conversation-date {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.chat-title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.conversation-title {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* AIメッセージ内のリンクの色を調整 */
+.ai-message .message-content a {
+    color: #ff6699;
+}
+
+.ai-message .message-content a:hover {
+    color: #ff3377;
+} 

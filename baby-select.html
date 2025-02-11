@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>すやり - 赤ちゃんの選択</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-firestore-compat.js"></script>
+    <script src="baby-select.js" type="module" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="baby-select-page">
+        <div class="baby-select-container">
+            <div class="app-header">
+                <div class="app-header-content">
+                    <div class="app-header-left">
+                        <a href="#" class="app-logo">すやり</a>
+                        <h1 class="page-title">赤ちゃんを選択</h1>
+                    </div>
+                    <button id="signOutButton" class="signout-button">サインアウト</button>
+                </div>
+            </div>
+            <div class="page-content">
+                <div id="babyList" class="baby-list">
+                    <!-- 登録済みの赤ちゃん一覧がここに表示されます -->
+                </div>
+                <button id="addNewBaby" class="add-baby-button">
+                    <span class="plus-icon">+</span>
+                    新しい赤ちゃんを登録
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

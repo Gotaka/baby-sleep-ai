@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>すやり - 会話を選択</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="conversation-select-page">
+        <div class="conversation-select-container">
+            <div class="app-header">
+                <div class="app-header-content">
+                    <div class="app-header-left">
+                        <button class="back-button" onclick="location.href='baby-select.html'">
+                            <span class="back-icon">←</span>
+                        </button>
+                        <a href="#" class="app-logo">
+                            <span class="logo-main">すや</span><span class="logo-accent">り</span>
+                        </a>
+                        <div class="header-info">
+                            <h1 class="page-title">会話を選択</h1>
+                            <div class="baby-name" id="selectedBabyName"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-content">
+                <div id="conversationList" class="conversation-list">
+                    <!-- 会話一覧がここに表示されます -->
+                </div>
+                <button id="startNewConversation" class="add-conversation-button">
+                    <span class="plus-icon">+</span>
+                    新しい会話を始める
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-firestore-compat.js"></script>
+    <script src="conversation-select.js" type="module" crossorigin="anonymous"></script>
+</body>
+</html> 

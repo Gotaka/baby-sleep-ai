@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>すやり - 赤ちゃんの情報入力</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-firestore-compat.js"></script>
+    <script src="baby-info.js" type="module" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="baby-info-page">
+        <div class="baby-info-container">
+            <div class="app-header">
+                <div class="app-header-content">
+                    <div class="app-header-left">
+                        <a href="#" class="app-logo">すやり</a>
+                        <h1 class="page-title">赤ちゃんの情報入力</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="page-content">
+                <h2>赤ちゃんの情報を教えてください</h2>
+                <form id="babyInfoForm" class="baby-info-form">
+                    <div class="form-group">
+                        <label for="babyName">赤ちゃんの名前</label>
+                        <input type="text" id="babyName" placeholder="名前を入力" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="babyBirthday">誕生日</label>
+                        <input type="date" id="babyBirthday" required>
+                        <span id="babyAge" class="info-text"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="babyNapSchedule">昼寝の時間帯</label>
+                        <textarea id="babyNapSchedule" placeholder="例：午前10時〜11時、午後2時〜3時" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="babyCurrentIssues">現在の睡眠の悩み</label>
+                        <textarea id="babyCurrentIssues" placeholder="例：夜中に頻繁に起きる、寝かしつけに時間がかかる" rows="3"></textarea>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" class="submit-button">情報を保存</button>
+                        <button type="button" class="skip-button" onclick="location.href='chat.html'">スキップ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

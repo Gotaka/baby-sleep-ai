@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>すやり - チャット</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-firestore-compat.js"></script>
+    <script src="chat.js" type="module" crossorigin="anonymous"></script>
+</head>
+<body>
+    <section id="chat" class="chat-section">
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="app-header-content">
+                    <div class="app-header-left">
+                        <button class="back-button" onclick="location.href='conversation-select.html'">
+                            <span class="back-icon">←</span>
+                        </button>
+                        <a href="#" class="app-logo">
+                            <span class="logo-main">すや</span><span class="logo-accent">り</span>
+                        </a>
+                        <div class="chat-title">
+                            <span class="selected-baby-name"></span>
+                            <span class="conversation-title"></span>
+                        </div>
+                    </div>
+                    <button class="change-baby-button" onclick="location.href='baby-select.html'">赤ちゃんを変更</button>
+                </div>
+            </div>
+            <div class="chat-messages">
+                <!-- チャットメッセージがここに表示されます -->
+            </div>
+            <div class="chat-input">
+                <form class="message-form">
+                    <textarea placeholder="メッセージを入力..." rows="1"></textarea>
+                    <button type="submit" class="send-button">送信</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html> 
