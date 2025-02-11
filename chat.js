@@ -11,10 +11,15 @@ import {
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-firestore.js";
 
-// 定数定義
-const DIFY_API_URL = 'https://api.dify.ai/v1';
-const API_KEY = 'app-44DggXgrSQI9FcLCDzLeApHq';
-const CHAT_HISTORY_LIMIT = 50;
+// 定数をより明確に定義
+const CONFIG = {
+    DIFY_API_URL: 'https://api.dify.ai/v1',
+    API_KEY: 'app-44DggXgrSQI9FcLCDzLeApHq',
+    CHAT_HISTORY_LIMIT: 50,
+    SCROLL_DELAY: 100,
+    SCROLL_OFFSET_RATIO: 0.3,
+    MIN_SCROLL_OFFSET: 100
+};
 
 // Firebase初期化
 const app = initializeApp({
@@ -30,7 +35,7 @@ const app = initializeApp({
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// DOM要素の取得と状態管理
+// DOM要素の取得をより堅牢に
 const elements = {
     chatMessages: document.querySelector('.chat-messages'),
     messageForm: document.querySelector('.message-form'),
@@ -38,9 +43,12 @@ const elements = {
     selectedBabyName: document.querySelector('.selected-baby-name')
 };
 
-let currentUser = null;
-let currentBabyId = null;
-let currentConversationId = null;
+// 状態管理をよりシンプルに
+const state = {
+    user: null,
+    babyId: null,
+    conversationId: null
+};
 
 // メッセージ関連の関数
 function createMessageElement(content, type) {
@@ -56,7 +64,7 @@ function createMessageElement(content, type) {
 }
 
 async function saveMessage(content, type) {
-    if (!currentUser || !currentBabyId) {
+    if (!state.user || !state.babyId) {
         throw new Error('User or baby ID not set');
     }
 
@@ -67,30 +75,28 @@ async function saveMessage(content, type) {
     };
 
     return await addDoc(
-        collection(db, `users/${currentUser.uid}/babyInfo/${currentBabyId}/chats`),
+        collection(db, `users/${state.user.uid}/babyInfo/${state.babyId}/chats`),
         messageData
     );
 }
 
-// 月齢計算用の関数を追加
+// 月齢計算をより効率的に
 function calculateAge(birthday) {
-    const birthDate = new Date(birthday);
+    if (!birthday) return 0;
+    const birth = new Date(birthday);
     const today = new Date();
-    
-    let months = (today.getFullYear() - birthDate.getFullYear()) * 12;
-    months -= birthDate.getMonth();
-    months += today.getMonth();
-    
-    return months <= 0 ? 0 : months;
+    const monthDiff = today.getMonth() - birth.getMonth() + 
+        (12 * (today.getFullYear() - birth.getFullYear()));
+    return Math.max(0, monthDiff);
 }
 
 // 会話の初期化処理を修正
 async function initializeConversation() {
-    if (!currentUser || !currentBabyId) return null;
+    if (!state.user || !state.babyId) return null;
 
     try {
         // Firestoreから既存の会話IDを取得
-        const conversationRef = collection(db, `users/${currentUser.uid}/babyInfo/${currentBabyId}/conversations`);
+        const conversationRef = collection(db, `users/${state.user.uid}/babyInfo/${state.babyId}/conversations`);
         const conversationDoc = await getDocs(query(conversationRef, orderBy('createdAt', 'desc'), limit(1)));
         
         if (!conversationDoc.empty) {
@@ -103,15 +109,15 @@ async function initializeConversation() {
         const ageInMonths = calculateAge(birthday);
 
         // 新しい会話を作成（エンドポイントとメソッドを修正）
-        const response = await fetch(`${DIFY_API_URL}/chat-messages`, {
+        const response = await fetch(`${CONFIG.DIFY_API_URL}/chat-messages`, {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${API_KEY}`,
+                'Authorization': `Bearer ${CONFIG.API_KEY}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 query: "会話を開始します",
-                user: currentUser.uid,
+                user: state.user.uid,
                 inputs: {
                     birthday: birthday,
                     age_months: ageInMonths,
@@ -147,144 +153,46 @@ function scrollToMessage(messageElement, offset = 0) {
     container.scrollTop = messageTop - offset;
 }
 
-// メッセージ送信処理のローディング表示部分を修正
+// メッセージ送信処理の最適化
 async function sendMessage(message) {
-    if (!message.trim() || !currentUser || !currentBabyId) {
-        console.error('送信条件が満たされていません');
-        return;
-    }
+    if (!message.trim() || !state.user || !state.babyId) return;
 
+    const userDiv = document.createElement('div');
+    const loadingDiv = document.createElement('div');
+    
     try {
-        // 会話IDの確認と初期化
-        if (!currentConversationId) {
-            currentConversationId = await initializeConversation();
-            if (!currentConversationId) {
-                throw new Error('会話の初期化に失敗しました');
-            }
+        // 会話IDの確認
+        if (!state.conversationId) {
+            state.conversationId = await initializeConversation();
+            if (!state.conversationId) throw new Error('会話の初期化に失敗しました');
         }
 
-        // ユーザーメッセージを表示
-        const userDiv = document.createElement('div');
-        userDiv.className = 'message user-message';
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'message-content';
-        contentDiv.textContent = message;
-        userDiv.appendChild(contentDiv);
-        elements.chatMessages.appendChild(userDiv);
-        
-        // ユーザーメッセージを保存
-        await addDoc(collection(db, `users/${currentUser.uid}/babyInfo/${currentBabyId}/chats`), {
-            content: message,
-            type: 'user',
-            timestamp: serverTimestamp()
-        });
+        // ユーザーメッセージの表示と保存を同時に実行
+        const [messageElement] = await Promise.all([
+            displayUserMessage(message, userDiv),
+            saveMessage(message, 'user')
+        ]);
 
         // ローディング表示
-        const loadingDiv = document.createElement('div');
-        loadingDiv.className = 'message ai-message';
-        const loadingContent = document.createElement('div');
-        loadingContent.className = 'message-content';
-        loadingContent.textContent = '回答を考えています...';
-        loadingDiv.appendChild(loadingContent);
-        elements.chatMessages.appendChild(loadingDiv);
+        displayLoadingMessage(loadingDiv);
 
-        // ローディング表示を確実に見せるためのスクロール
-        setTimeout(() => {
-            elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
-            // スクロールが確実に完了するまで再試行
-            const checkScroll = setInterval(() => {
-                if (elements.chatMessages.scrollTop + elements.chatMessages.clientHeight < elements.chatMessages.scrollHeight) {
-                    elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
-                } else {
-                    clearInterval(checkScroll);
-                }
-            }, 50);
-            // 一定時間後にチェックを停止
-            setTimeout(() => clearInterval(checkScroll), 500);
-        }, 10);
+        // AI応答の取得と表示
+        const answer = await getAIResponse(message);
+        
+        // ローディング表示を削除
+        loadingDiv.remove();
 
-        try {
-            // AI応答を取得
-            const response = await fetch(`${DIFY_API_URL}/chat-messages`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${API_KEY}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    query: message,
-                    response_mode: "blocking",
-                    conversation_id: currentConversationId,
-                    user: currentUser.uid,
-                    inputs: {
-                        birthday: sessionStorage.getItem('selectedBabyBirthday'),
-                        age_months: calculateAge(sessionStorage.getItem('selectedBabyBirthday')),
-                        language: "日本語",
-                        name: sessionStorage.getItem('selectedBabyName')
-                    }
-                })
-            });
+        // 応答の表示と保存を同時に実行
+        await Promise.all([
+            displayAIMessage(answer),
+            saveMessage(answer, 'ai')
+        ]);
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(`API Error: ${errorData.message || response.statusText}`);
-            }
-
-            const data = await response.json();
-
-            // ローディング表示の更新を停止
-            clearInterval(loadingInterval);
-            
-            // ローディング表示を削除
-            elements.chatMessages.removeChild(loadingDiv);
-
-            if (!data || !data.answer) {
-                throw new Error('無効な応答フォーマット');
-            }
-
-            // AI応答を表示
-            const aiDiv = document.createElement('div');
-            aiDiv.className = 'message ai-message';
-            const aiContent = document.createElement('div');
-            aiContent.className = 'message-content';
-            aiContent.textContent = data.answer;
-            aiDiv.appendChild(aiContent);
-            elements.chatMessages.appendChild(aiDiv);
-
-            // ユーザーの質問が見えるようにスクロール
-            setTimeout(() => {
-                const containerHeight = elements.chatMessages.clientHeight;
-                const offset = Math.max(containerHeight * 0.3, 100); // コンテナの30%または100px
-                scrollToMessage(userDiv, offset);
-            }, 100);
-
-            // AI応答を保存
-            if (data.answer) {
-                await addDoc(collection(db, `users/${currentUser.uid}/babyInfo/${currentBabyId}/chats`), {
-                    content: data.answer,
-                    type: 'ai',
-                    timestamp: serverTimestamp()
-                });
-            }
-
-        } catch (error) {
-            // エラー時もローディング表示の更新を停止
-            clearInterval(loadingInterval);
-            throw error;
-        }
+        // スクロール位置の調整
+        adjustScrollPosition(userDiv);
 
     } catch (error) {
-        console.error('エラー:', error);
-        
-        // エラーの種類に応じて処理
-        if (error.message.includes('conversation not found')) {
-            // 会話が見つからない場合は再初期化
-            currentConversationId = null;
-            showError('会話を再初期化します。もう一度送信してください。');
-        } else {
-            // その他のエラー
-            showError(`メッセージの送信に失敗しました: ${error.message}`);
-        }
+        handleError(error, loadingDiv);
     }
 }
 
@@ -306,13 +214,13 @@ function showError(message) {
 
 // チャット履歴の読み込み
 async function loadChatHistory() {
-    if (!currentUser || !currentBabyId) return;
+    if (!state.user || !state.babyId) return;
 
     try {
         const chatQuery = query(
-            collection(db, `users/${currentUser.uid}/babyInfo/${currentBabyId}/chats`),
+            collection(db, `users/${state.user.uid}/babyInfo/${state.babyId}/chats`),
             orderBy('timestamp', 'desc'),
-            limit(CHAT_HISTORY_LIMIT)
+            limit(CONFIG.CHAT_HISTORY_LIMIT)
         );
         
         const querySnapshot = await getDocs(chatQuery);
@@ -358,11 +266,11 @@ onAuthStateChanged(auth, async (user) => {
         return;
     }
 
-    currentUser = user;
-    currentBabyId = sessionStorage.getItem('selectedBabyId');
+    state.user = user;
+    state.babyId = sessionStorage.getItem('selectedBabyId');
     const babyName = sessionStorage.getItem('selectedBabyName');
 
-    if (!currentBabyId || !babyName) {
+    if (!state.babyId || !babyName) {
         showError('赤ちゃんが選択されていません');
         setTimeout(() => window.location.href = 'baby-select.html', 2000);
         return;
@@ -373,7 +281,7 @@ onAuthStateChanged(auth, async (user) => {
     }
 
     // 会話を初期化
-    currentConversationId = await initializeConversation();
+    state.conversationId = await initializeConversation();
     
     await loadChatHistory();
 }); 
