@@ -98,29 +98,96 @@ button,
 
 .chat-messages {
     flex: 1;
+    padding: 16px;
+    margin: 56px 0 60px 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 1rem;
-    scroll-behavior: smooth;
+    background-color: #fff5f7;
 }
 
-/* メッセージバブルの最適化 */
-.message-content {
+/* メッセージ表示の基本スタイル */
+.message {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
     max-width: 85%;
-    padding: 12px 16px;
-    border-radius: 18px;
-    font-size: 15px;
-    line-height: 1.4;
 }
 
-.user-message .message-content {
-    border-bottom-right-radius: 4px;
+/* ユーザーメッセージのスタイル */
+.user-message {
     margin-left: auto;
 }
 
+.user-message .message-content {
+    background: #ff99cc;
+    color: white;
+    border-bottom-right-radius: 4px;
+    margin-left: auto;
+    padding: 12px 16px;
+    border-radius: 18px;
+}
+
+/* AIメッセージのスタイル */
+.ai-message {
+    margin-right: auto;
+}
+
 .ai-message .message-content {
+    background: white;
+    color: #333; /* AIメッセージのテキスト色を明示的に設定 */
     border-bottom-left-radius: 4px;
     margin-right: auto;
+    padding: 12px 16px;
+    border-radius: 18px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* メッセージコンテンツの共通スタイル */
+.message-content {
+    max-width: 100%;
+    font-size: 15px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+/* チャットメッセージエリアの最適化 */
+.chat-messages {
+    flex: 1;
+    padding: 16px;
+    margin: 56px 0 60px 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background-color: #fff5f7;
+}
+
+/* エラーメッセージのスタイル */
+.error-message {
+    background-color: #ffe6e6;
+    color: #ff4444;
+    padding: 12px;
+    margin: 8px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* メッセージ内のテキストスタイル */
+.message-content p {
+    margin: 0 0 8px 0;
+}
+
+.message-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* メッセージ内のリンクスタイル */
+.message-content a {
+    color: #ff6699;
+    text-decoration: underline;
+}
+
+.message-content a:hover {
+    color: #ff3377;
 }
 
 /* チャット入力エリアの最適化 */
@@ -186,11 +253,6 @@ button,
 .send-button:active {
     transform: scale(0.95);
     background: #ff80bf;
-}
-
-/* メッセージ表示エリアの最適化 */
-.chat-messages {
-    padding-bottom: 60px; /* 入力エリアの高さ分の余白を確保 */
 }
 
 /* 入力欄のフォーカス時のスタイル */
@@ -870,17 +932,6 @@ button,
         background: none;
     }
 
-    /* エラーメッセージの表示を改善 */
-    .error-message {
-        color: #ff4444;
-        margin-top: 0.5rem;
-        font-size: 0.9rem;
-        background-color: #ffe6e6;
-        padding: 0.5rem;
-        border-radius: 5px;
-        text-align: center;
-    }
-
     /* 赤ちゃん情報フォームの調整 */
     .baby-info-form {
         padding: 16px;
@@ -1281,17 +1332,6 @@ button,
         color: white;
     }
 
-    /* エラーメッセージのスタイル */
-    .error-message {
-        background-color: #ffe6e6;
-        color: #ff4444;
-        padding: 1rem;
-        margin: 1rem;
-        border-radius: 5px;
-        text-align: center;
-        font-weight: bold;
-    }
-
     /* アプリ名のスタイル */
     .app-title {
         color: #ff99cc;
@@ -1541,15 +1581,6 @@ button,
     .conversation-title {
         color: #666;
         font-size: 0.9rem;
-    }
-
-    /* AIメッセージ内のリンクの色を調整 */
-    .ai-message .message-content a {
-        color: #ff6699;
-    }
-
-    .ai-message .message-content a:hover {
-        color: #ff3377;
     }
 
     /* モバイル対応の基本設定 */
@@ -1887,5 +1918,42 @@ button,
                 padding-bottom: max(80px, calc(80px + env(safe-area-inset-bottom)));
             }
         }
+    }
+
+    /* 会話履歴の表示スタイル */
+    .conversation-history {
+        margin-top: 12px;
+        padding: 8px;
+        background: #fff5f7;
+        border-radius: 8px;
+    }
+
+    .conversation-preview {
+        padding: 8px;
+        margin: 4px 0;
+        background: white;
+        border-radius: 6px;
+        font-size: 14px;
+        color: #666;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    /* 赤ちゃんカードのスタイル改善 */
+    .baby-card {
+        background: white;
+        padding: 16px;
+        margin: 12px;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .baby-card h3 {
+        margin: 0 0 8px 0;
+        color: #333;
+    }
+
+    .baby-card p {
+        margin: 4px 0;
+        color: #666;
     }
 } 
