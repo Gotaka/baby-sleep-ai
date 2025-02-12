@@ -2,40 +2,57 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebas
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-auth.js";
 import { getFirestore, collection, query, orderBy, getDocs, addDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-firestore.js";
 
-// Firebase設定を正しく設定
-const firebaseConfig = {
+// Firebase設定
+const app = initializeApp({
     apiKey: "AIzaSyAJRoEA5FmZuzVbVTYsjDZdd4hbZSnzr5A",
     authDomain: "ai-sleep-consultant.firebaseapp.com",
     projectId: "ai-sleep-consultant",
-    storageBucket: "ai-sleep-consultant.firebasestorage.app",
+    storageBucket: "ai-sleep-consultant.firebaseapp.com",
     messagingSenderId: "48632759539",
     appId: "1:48632759539:web:1e087f751048a5fba16386",
     measurementId: "G-VXCMH47EV2"
-};
+});
 
-const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// DOM Elements
-const conversationList = document.querySelector('#conversationList');
-const startNewConversation = document.querySelector('#startNewConversation');
+// DOM要素
+const elements = {
+    selectedBabyName: document.querySelector('.selected-baby-name'),
+    conversationList: document.getElementById('conversationList'),
+    startNewConversation: document.getElementById('startNewConversation')
+};
 
-// 認証状態の確認
-onAuthStateChanged(auth, (user) => {
-    if (!user) {
-        window.location.href = 'index.html';
-        return;
-    }
-
-    const babyId = sessionStorage.getItem('selectedBabyId');
-    if (!babyId) {
+// 初期化処理
+function initialize() {
+    // セッションストレージから赤ちゃんの情報を取得
+    const babyName = sessionStorage.getItem('selectedBabyName');
+    
+    // 赤ちゃんの名前を表示
+    if (elements.selectedBabyName && babyName) {
+        elements.selectedBabyName.textContent = babyName;
+    } else {
+        // 赤ちゃんが選択されていない場合は選択画面へリダイレクト
         window.location.href = 'baby-select.html';
-        return;
     }
+}
 
-    loadConversations(user.uid, babyId);
+// 認証状態の監視
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        initialize();
+    } else {
+        // 未ログインの場合はログイン画面へリダイレクト
+        window.location.href = 'index.html';
+    }
 });
+
+// 新規会話開始ボタンのイベントリスナー
+if (elements.startNewConversation) {
+    elements.startNewConversation.addEventListener('click', () => {
+        window.location.href = 'chat.html';
+    });
+}
 
 // 会話一覧を読み込む
 async function loadConversations(userId, babyId) {
@@ -46,12 +63,12 @@ async function loadConversations(userId, babyId) {
         );
         
         const querySnapshot = await getDocs(q);
-        conversationList.innerHTML = '';
+        elements.conversationList.innerHTML = '';
         
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             const card = createConversationCard(doc.id, data);
-            conversationList.appendChild(card);
+            elements.conversationList.appendChild(card);
         });
     } catch (error) {
         console.error('会話一覧の読み込みエラー:', error);
@@ -113,22 +130,6 @@ function createConversationCard(id, data) {
     return card;
 }
 
-// 新しい会話を開始する処理を修正
-startNewConversation.addEventListener('click', () => {
-    try {
-        console.log('Starting new conversation...'); // デバッグ用
-        // セッションストレージをクリア
-        sessionStorage.removeItem('selectedConversationId');
-        sessionStorage.removeItem('difyConversationId');
-        
-        // chat.htmlに遷移
-        window.location.href = 'chat.html';
-    } catch (error) {
-        console.error('Error starting new conversation:', error);
-        showError('新しい会話の開始に失敗しました');
-    }
-});
-
 // デバッグ用のコンソールログを追加
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Conversation select page loaded');
@@ -140,13 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('New conversation button found');
     } else {
         console.error('New conversation button not found');
-    }
-
-    // 赤ちゃんの名前を表示
-    const babyName = sessionStorage.getItem('selectedBabyName');
-    const babyNameElement = document.getElementById('selectedBabyName');
-    if (babyName && babyNameElement) {
-        babyNameElement.textContent = `${babyName}の会話一覧`;
     }
 });
 

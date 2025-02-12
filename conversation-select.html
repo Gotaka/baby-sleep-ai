@@ -9,22 +9,11 @@
 <body>
     <div class="conversation-select-page">
         <div class="conversation-select-container">
-            <div class="app-header">
-                <div class="app-header-content">
-                    <div class="app-header-left">
-                        <button class="back-button" onclick="location.href='baby-select.html'">
-                            <span class="back-icon">←</span>
-                        </button>
-                        <a href="#" class="app-logo">
-                            <span class="logo-main">すや</span><span class="logo-accent">り</span>
-                        </a>
-                        <div class="header-info">
-                            <h1 class="page-title">会話を選択</h1>
-                            <div class="baby-name" id="selectedBabyName"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <header class="chat-header">
+                <button class="back-button" onclick="history.back()">←</button>
+                <h1 class="app-title">すやり</h1>
+                <span class="page-title">相談の一覧</span>
+            </header>
             <div class="page-content">
                 <div id="conversationList" class="conversation-list">
                     <!-- 会話一覧がここに表示されます -->

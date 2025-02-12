@@ -13,23 +13,11 @@
 <body>
     <section id="chat" class="chat-section">
         <div class="chat-container">
-            <div class="chat-header">
-                <div class="app-header-content">
-                    <div class="app-header-left">
-                        <button class="back-button" onclick="location.href='conversation-select.html'">
-                            <span class="back-icon">←</span>
-                        </button>
-                        <a href="#" class="app-logo">
-                            <span class="logo-main">すや</span><span class="logo-accent">り</span>
-                        </a>
-                        <div class="chat-title">
-                            <span class="selected-baby-name"></span>
-                            <span class="conversation-title"></span>
-                        </div>
-                    </div>
-                    <button class="change-baby-button" onclick="location.href='baby-select.html'">赤ちゃんを変更</button>
-                </div>
-            </div>
+            <header class="chat-header">
+                <button class="back-button" onclick="history.back()">←</button>
+                <h1 class="app-title">すやり</h1>
+                <span class="page-title">相談</span>
+            </header>
             <div class="chat-messages">
                 <!-- チャットメッセージがここに表示されます -->
             </div>
